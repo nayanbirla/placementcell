@@ -4,7 +4,6 @@ import com.placementcell.entities.Course;
 
 public class UserRequestData {
 
-	private int id;
 	private String email;
 	private String firstName;
 	private String middleName;
@@ -22,11 +21,10 @@ public class UserRequestData {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserRequestData(int id,String email, String firstName, String middleName, String lastName, String personalEmail,
+	public UserRequestData(String email, String firstName, String middleName, String lastName, String personalEmail,
 			String gender, String contact, String course, String image, double tenthPercentage, double twelthPercentage,
 			double ug, double pg) {
 		super();
-		this.id=id;
 		this.email = email;
 		this.firstName = firstName;
 		this.middleName = middleName;
@@ -42,13 +40,6 @@ public class UserRequestData {
 		this.pg = pg;
 	}
 	
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getEmail() {
 		return email;
 	}

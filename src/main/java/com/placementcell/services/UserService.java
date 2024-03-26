@@ -64,7 +64,7 @@ public class UserService {
 
 	public Users saveUserRequestData(UserRequestData userRequestData)
 			throws UserNotFoundException, InvalidEmailException, InvalidCourseException {
-		Users existingUser = userRepository.findById(userRequestData.getId())
+		Users existingUser = userRepository.FindByEmail(userRequestData.getEmail())
 				.orElseThrow(() -> new UserNotFoundException("User Not Found"));
 		if (!(existingUser.getEmail().equals(userRequestData.getEmail()))) {
 			throw new InvalidEmailException("User Mail Not Found");
