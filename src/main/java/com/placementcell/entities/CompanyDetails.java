@@ -25,6 +25,7 @@ public class CompanyDetails {
     private String description;
     private boolean hiringStatus;
     private String logo;
+    private String coverImage;
     @OneToMany(mappedBy = "companyDetailsPlaced")
     @JsonManagedReference
     private List<PlacedStudent> placedStudent;
@@ -41,14 +42,21 @@ public class CompanyDetails {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CompanyDetails(int companyId, String companyName, String description, boolean hiringStatus,String logo) {
+	
+	public CompanyDetails(int companyId, String companyName, String description, boolean hiringStatus, String logo,
+			String coverImage, List<PlacedStudent> placedStudent, List<Questions> questions, Users adminId) {
 		super();
 		this.companyId = companyId;
 		this.companyName = companyName;
 		this.description = description;
 		this.hiringStatus = hiringStatus;
-		this.logo=logo;
+		this.logo = logo;
+		this.coverImage = coverImage;
+		this.placedStudent = placedStudent;
+		this.questions = questions;
+		this.adminId = adminId;
 	}
+
 	public long getCompanyId() {
 		return companyId;
 	}
@@ -96,6 +104,12 @@ public class CompanyDetails {
 	}
 	public void setAdminId(Users adminId) {
 		this.adminId = adminId;
+	}
+	public String getCoverImage() {
+		return coverImage;
+	}
+	public void setCoverImage(String coverImage) {
+		this.coverImage = coverImage;
 	}
     
     
