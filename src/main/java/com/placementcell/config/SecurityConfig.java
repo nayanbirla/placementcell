@@ -61,9 +61,9 @@ public class SecurityConfig {
 			    .authorizeHttpRequests(auth->auth
 			        .requestMatchers("/user/login","/forgot/otpsend","/forgot/otpreceive")
 			            .permitAll()
-			        .requestMatchers("/company/add","/company/update","/admin/allstudents","/questions/add","/company","/company/","/course")
+			        .requestMatchers("/company/add","/company/update","/admin/allstudents","/questions/add","/company","/company/","/course","/placed/add","/placed/update","/placed/delete")
 			            .hasRole("ADMIN")
-			        .requestMatchers("/user/update")
+			        .requestMatchers("/user/update","/placed/getall")
 			            .hasAnyRole("ADMIN", "USER")
 			        .requestMatchers("/user/update","/company","/company/","/course")
 			            .hasRole("USER")
