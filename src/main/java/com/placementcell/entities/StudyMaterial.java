@@ -20,19 +20,21 @@ public class StudyMaterial {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int studyMaterialId;
-    private String subjectName;
-    private String topicName;
-    private String description;
-    @OneToMany(mappedBy = "studyMaterial")
-    @JsonManagedReference
-    private List<Links> links;
-    @ManyToOne
-    @JsonIgnore
-    private Users superAdminId; 
+	private String subjectName;
+	private String topicName;
+	private String description;
+	@OneToMany(mappedBy = "studyMaterial")
+	@JsonManagedReference
+	private List<Links> links;
+	@ManyToOne
+	@JsonIgnore
+	private Users superAdminId;
+
 	public StudyMaterial() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public StudyMaterial(int studyMaterialId, String subjectName, String topicName, String description,
 			List<Links> links) {
 		super();
@@ -42,37 +44,53 @@ public class StudyMaterial {
 		this.description = description;
 		this.links = links;
 	}
+
 	public int getStudyMaterialId() {
 		return studyMaterialId;
 	}
+
 	public void setStudyMaterialId(int studyMaterialId) {
 		this.studyMaterialId = studyMaterialId;
 	}
+
 	public String getSubjectName() {
 		return subjectName;
 	}
+
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
+
 	public String getTopicName() {
 		return topicName;
 	}
+
 	public void setTopicName(String topicName) {
 		this.topicName = topicName;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public List<Links> getLinks() {
 		return links;
 	}
+
 	public void setLinks(List<Links> links) {
 		this.links = links;
 	}
-    
-    
-   
+
+	public Users getSuperAdminId() {
+		return superAdminId;
+	}
+
+	public void setSuperAdminId(Users superAdminId) {
+		this.superAdminId = superAdminId;
+	}
+
 }

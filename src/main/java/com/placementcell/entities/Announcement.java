@@ -25,6 +25,12 @@ public class Announcement {
     @JsonIgnore
     @JoinColumn(name="superAdminId")
 	private Users superAdminId;
+    
+
+	public Announcement() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	// Constructor
 	public Announcement(int id, String title, String content, LocalDate datePosted, LocalDate dateToRemove,Users superAdminId) {
