@@ -1,17 +1,22 @@
 package com.placementcell.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.placementcell.dto.AnnouncementResponse;
 import com.placementcell.entities.Announcement;
 import com.placementcell.entities.Users;
+import com.placementcell.exceptions.InvalidExpiryDateException;
 import com.placementcell.repository.AnnouncementRepository;
 import com.placementcell.repository.UserRepository;
 import com.placementcell.request.AnnouncementRequest;
+import com.placementcell.utility.Message;
 
 @Service
 public class AnnouncementService {
@@ -25,11 +30,15 @@ public class AnnouncementService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public AnnouncementResponse addAnnouncement(AnnouncementRequest announcementRequest, String token) {
+	public AnnouncementResponse addAnnouncement(AnnouncementRequest announcementRequest, String token)
+			throws InvalidExpiryDateException {
+		if (announcementRequest.getExpiryDate().isBefore(LocalDate.now())) {
+			throw new InvalidExpiryDateException("Invalid Expiry Date");
+		}
 		Announcement announcement = new Announcement();
 		announcement.setTitle(announcementRequest.getTitle());
 		announcement.setContent(announcementRequest.getContent());
-		announcement.setDatePosted(announcementRequest.getPostedDate());
+		announcement.setDatePosted(LocalDate.now());
 		announcement.setDateToRemove(announcementRequest.getExpiryDate());
 		String username = jwtService.extractUserName(token);
 		Users user = userRepository.FindByEmail(username).get();
@@ -41,11 +50,15 @@ public class AnnouncementService {
 		return announcementResponse;
 	}
 
-	public AnnouncementResponse updateAnnouncement(AnnouncementRequest announcementRequest) {
+	public AnnouncementResponse updateAnnouncement(AnnouncementRequest announcementRequest)
+			throws InvalidExpiryDateException {
+		if (announcementRequest.getExpiryDate().isBefore(LocalDate.now())) {
+			throw new InvalidExpiryDateException("Invalid Expiry Date");
+		}
 		Announcement announcement = announcementRepository.findById(announcementRequest.getId()).get();
 		announcement.setTitle(announcementRequest.getTitle());
 		announcement.setContent(announcementRequest.getContent());
-		announcement.setDatePosted(announcementRequest.getPostedDate());
+		announcement.setDatePosted(announcement.getDatePosted());
 		announcement.setDateToRemove(announcementRequest.getExpiryDate());
 
 		Announcement announcement2 = announcementRepository.save(announcement);
@@ -56,25 +69,32 @@ public class AnnouncementService {
 
 		return announcementResponse;
 	}
-	
-	public List<AnnouncementResponse> getAllActiveAnnouncement()
-	{
-		List<Object[]> announcements=announcementRepository.findAllActiveAnnouncement();
-		List<AnnouncementResponse> announcementResponses=new ArrayList<>();
-		for(Object[] announcement: announcements)
-		{
-			AnnouncementResponse announcementResponse=new AnnouncementResponse();
+
+	public List<AnnouncementResponse> getAllActiveAnnouncement() {
+		List<Object[]> announcements = announcementRepository.findAllActiveAnnouncement();
+		List<AnnouncementResponse> announcementResponses = new ArrayList<>();
+		for (Object[] announcement : announcements) {
+			AnnouncementResponse announcementResponse = new AnnouncementResponse();
 			announcementResponse.setTitle(announcement[0].toString());
 			announcementResponse.setContent(announcement[1].toString());
 			announcementResponses.add(announcementResponse);
 		}
 		return announcementResponses;
 	}
-	
-	public List<Announcement> getAllAnnouncement()
-	{
-		List<Announcement> announcements=announcementRepository.findAll();
+
+	public List<Announcement> getAllAnnouncement() {
+		List<Announcement> announcements = announcementRepository.findAll();
 		return announcements;
+	}
+
+	public Message delete(int id) {
+		try {
+			announcementRepository.deleteById(id);
+			return new Message("Announcement Deleted Successfully");
+		} catch (Exception exception) {
+			return new Message("Announcement Not Exist");
+		}
+
 	}
 
 }

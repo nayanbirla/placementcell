@@ -22,5 +22,9 @@ public interface UserRepository extends JpaRepository<Users,Integer>{
 			+ "where role!='ROLE_SUPERADMIN';",nativeQuery = true)
 	List<Object[]> findAllStudentsList();
 	
+	@Query(value="SELECT COUNT(*) AS user_count\r\n"
+			+ "FROM users_info\r\n"
+			+ "WHERE email =:email",nativeQuery=true)
+	int checkEmailExistance(@Param("email") String email);
 	
 }

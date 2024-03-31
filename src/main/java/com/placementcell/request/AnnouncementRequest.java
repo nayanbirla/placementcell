@@ -8,7 +8,6 @@ public class AnnouncementRequest {
 	private int id;
 	private String title;
 	private String content;
-	private LocalDate postedDate;
 	private LocalDate expiryDate;
 
 	public AnnouncementRequest() {
@@ -16,12 +15,11 @@ public class AnnouncementRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnnouncementRequest(int id, String title, String content, LocalDate postedDate, LocalDate expiryDate) {
+	public AnnouncementRequest(int id, String title, String content, LocalDate expiryDate) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
-		this.postedDate = postedDate;
 		this.expiryDate = expiryDate;
 	}
 
@@ -47,14 +45,6 @@ public class AnnouncementRequest {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public LocalDate getPostedDate() {
-		return postedDate;
-	}
-
-	public void setPostedDate(LocalDate postedDate) {
-		this.postedDate = postedDate;
 	}
 
 	public LocalDate getExpiryDate() {

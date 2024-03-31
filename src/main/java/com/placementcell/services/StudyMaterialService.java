@@ -52,8 +52,15 @@ public class StudyMaterialService {
 		studyMaterialResponse.setSubjectName(studyMaterial.getSubjectName());
 		studyMaterialResponse.setDescription(studyMaterial.getDescription());
 		studyMaterialResponse.setLinks(studyMaterialLinks);
-		String name = "" + user.getUsersDetails().getFirstName() + " " + user.getUsersDetails().getLastName();
-		studyMaterialResponse.setAdderName(name);
+		String name = ""
+				+ ((user.getUsersDetails() != null && user.getUsersDetails().getFirstName() != null)
+						? user.getUsersDetails().getFirstName()
+						: "")
+				+ " "
+				+ ((user.getUsersDetails() != null && user.getUsersDetails().getLastName() != null)
+						? user.getUsersDetails().getLastName()
+						: "");
+		studyMaterialResponse.setAdderName(name.trim());
 
 		return studyMaterialResponse;
 	}
@@ -69,6 +76,7 @@ public class StudyMaterialService {
 			Links newLink = new Links();
 			newLink.setLink(link);
 		}
+		studyMaterial.setStudyMaterialId(studyMaterialRequest.getId());
 		studyMaterial.setLinks(links);
 		studyMaterial = studyMaterialRepository.save(studyMaterial);
 		StudyMaterialResponse studyMaterialResponse = new StudyMaterialResponse();
@@ -77,9 +85,18 @@ public class StudyMaterialService {
 		studyMaterialResponse.setTopicName(studyMaterial.getTopicName());
 		studyMaterialResponse.setDescription(studyMaterial.getDescription());
 		studyMaterialResponse.setLinks(studyMaterialLinks);
-		String name = "" + studyMaterial.getSuperAdminId().getUsersDetails().getFirstName() + " "
-				+ studyMaterial.getSuperAdminId().getUsersDetails().getLastName();
-		studyMaterialResponse.setAdderName(name);
+		String name = ""
+				+ ((studyMaterial.getSuperAdminId().getUsersDetails() != null
+						&& studyMaterial.getSuperAdminId().getUsersDetails().getFirstName() != null)
+								? studyMaterial.getSuperAdminId().getUsersDetails().getFirstName()
+								: "")
+				+ " "
+				+ ((studyMaterial.getSuperAdminId().getUsersDetails() != null
+						&& studyMaterial.getSuperAdminId().getUsersDetails().getLastName() != null)
+								? studyMaterial.getSuperAdminId().getUsersDetails().getLastName()
+								: "");
+
+		studyMaterialResponse.setAdderName(name.trim());
 		return studyMaterialResponse;
 
 	}
@@ -90,6 +107,7 @@ public class StudyMaterialService {
 		List<StudyMaterialResponse> studyMaterialResponses = new ArrayList<>();
 		for (StudyMaterial studyMaterial : studyMaterials) {
 			StudyMaterialResponse studyMaterialResponse = new StudyMaterialResponse();
+			studyMaterialResponse.setId(studyMaterial.getStudyMaterialId());
 			studyMaterialResponse.setSubjectName(studyMaterial.getSubjectName());
 			studyMaterialResponse.setTopicName(studyMaterial.getTopicName());
 			studyMaterialResponse.setDescription(studyMaterial.getDescription());
@@ -97,17 +115,16 @@ public class StudyMaterialService {
 
 			List<String> linkStrings = linksList.stream().map(Links::getLink).collect(Collectors.toList());
 			studyMaterialResponse.setLinks(linkStrings);
+			studyMaterialResponses.add(studyMaterialResponse);
 		}
 		return studyMaterialResponses;
 	}
-	
-	public Message delete(int id)
-	{
+
+	public Message delete(int id) {
 		try {
 			studyMaterialRepository.deleteById(id);
 			return new Message("Study Material has been deleted");
-		}catch(Exception ee)
-		{
+		} catch (Exception ee) {
 			return new Message("Study Material does not exist");
 		}
 	}

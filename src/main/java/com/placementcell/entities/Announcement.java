@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,8 +72,8 @@ public class Announcement {
 		return datePosted;
 	}
 
-	public void setDatePosted(LocalDate datePosted) {
-		this.datePosted = datePosted;
+	public void setDatePosted(LocalDate date) {
+		this.datePosted = date;
 	}
 
 	public LocalDate getDateToRemove() {

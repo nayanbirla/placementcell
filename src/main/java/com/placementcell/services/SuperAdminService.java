@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.relation.RoleNotFoundException;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,17 +17,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.placementcell.entities.Users;
 import com.placementcell.exceptions.InvalidExcelException;
+import com.placementcell.exceptions.UserNotFoundException;
 import com.placementcell.repository.UserRepository;
+import com.placementcell.request.RoleChangingRequest;
 import com.placementcell.utility.EmailValidation;
+import com.placementcell.utility.Message;
+
 @Service
 public class SuperAdminService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	public List<String> addEmailsFromExcel(MultipartFile file) throws InvalidExcelException{
+	@Autowired
+	private UserService userService;
+
+	public List<String> addEmailsFromExcel(MultipartFile file) throws InvalidExcelException {
 		List<String> invalidEmails = new ArrayList<>();
-        List<String> validEmails=new ArrayList<>();
+		List<String> validEmails = new ArrayList<>();
 		try {
 			Workbook workbook = new XSSFWorkbook(file.getInputStream());
 			Sheet sheet = workbook.getSheetAt(0); // Assuming the first sheet
@@ -49,28 +57,48 @@ public class SuperAdminService {
 						Cell emailCell = row.getCell(emailColumnIndex);
 						if (emailCell != null) {
 							String email = emailCell.getStringCellValue().trim();
-							validEmails.add(email);
 							if (!EmailValidation.validate(email)) {
 								invalidEmails.add(email);
+							} else {
+								validEmails.add(email);
 							}
 						}
 					}
 				}
 			}
-
+			System.out.println(validEmails);
 			workbook.close();
-			List<Users> users=new ArrayList<>();
-			for(String email: validEmails)
-			{
-				Users newUser=new Users();
-				newUser.setEmail(email);
-				users.add(newUser);
+			List<Users> users = new ArrayList<>();
+
+			for (String email : validEmails) {
+				int count = userRepository.checkEmailExistance(email);
+				if (count == 0) {
+//					System.out.println("nhi hai re");
+					Users newUser = new Users();
+					newUser.setEmail(email);
+					users.add(newUser);
+				}
 			}
-			userRepository.saveAll(users);
+			users = userRepository.saveAll(users);
+//			System.out.print(users);
 		} catch (IOException e) {
-			throw new InvalidExcelException("Excel file is not valid"); 
+			throw new InvalidExcelException("Excel file is not valid");
 			// Handle the IOException
 		}
 		return invalidEmails;
+	}
+
+	public Message changeRole(RoleChangingRequest roleChangingRequest)
+			throws UserNotFoundException, RoleNotFoundException {
+		Users users = userRepository.FindByEmail(roleChangingRequest.getEmail())
+				.orElseThrow(() -> new UserNotFoundException("User not found"));
+		String role = roleChangingRequest.getRole().toUpperCase();
+		if (role != "USER" && role != "ADMIN" && role != "SUPERADMIN") {
+			throw new RoleNotFoundException("Invalid Role");
+		}
+
+		users.setRole("ROLE_" + role);
+		userRepository.save(users);
+		return new Message("Role Has Been Changed");
 	}
 }

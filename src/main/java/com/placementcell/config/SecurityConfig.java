@@ -42,22 +42,19 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-		return httpSecurity
-				.csrf(csrf -> csrf.disable()).cors(
-						Customizer.withDefaults())
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/user/login", "/forgot/otpsend", "/forgot/otpreceive").permitAll()
-								.requestMatchers("/company/delete/", "/announcement/add", "/announcement/update",
-										"/announcement/getall", "/studymaterial/add", "/studymaterial/update",
-										"/studymaterial/delete/", "/user/add","/superadmin/sendfile")
-								.hasRole("SUPERADMIN")
-								.requestMatchers("/company/add", "/company/update", "/admin/allstudents",
-										"/questions/add", "/placed/add", "/placed/update", "/placed/delete")
-								.hasAnyRole("SUPERADMIN", "ADMIN")
-								.requestMatchers("/user/update", "/placed/getall", "/announcement/getallactive",
-										"/studymaterial/getall", "/company/getall", "/company/", "/course/getall",
-										"/user/")
-								.hasAnyRole("SUPERADMIN", "ADMIN", "USER").anyRequest().authenticated())
+		return httpSecurity.csrf(csrf -> csrf.disable()).cors(Customizer.withDefaults())
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/user/login", "/forgot/otpsend", "/forgot/otpreceive").permitAll()
+						.requestMatchers("/company/delete/", "/announcement/add", "/announcement/update",
+								"/announcement/getall", "/studymaterial/add", "/studymaterial/update",
+								"/studymaterial/delete/", "/user/add", "/superadmin/sendfile", "/announcement/delete/")
+						.hasRole("SUPERADMIN")
+						.requestMatchers("/company/add", "/company/update", "/admin/allstudents", "/questions/add",
+								"/placed/add", "/placed/update", "/placed/delete")
+						.hasAnyRole("SUPERADMIN", "ADMIN")
+						.requestMatchers("/user/update", "/placed/getall", "/announcement/getallactive",
+								"/studymaterial/getall", "/company/getall", "/company/", "/course/getall", "/user/")
+						.hasAnyRole("SUPERADMIN", "ADMIN", "USER").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
