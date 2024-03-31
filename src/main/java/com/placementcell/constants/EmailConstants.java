@@ -1,5 +1,7 @@
 package com.placementcell.constants;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class EmailConstants {
 
 	public final static String EmailSubject = "OTP for Resetting Your SCSIT Placement Cell Password";
@@ -11,7 +13,7 @@ public class EmailConstants {
             + "Thank you for your cooperation.\n\n"
             + "Best regards,\n"
             + "SCSIT Placement Cell Team";
-	
-	public final static String Email = "shoplifyindia@gmail.com";
+	@Value("${emailSender}")
+	public static String Email;
 
 }
