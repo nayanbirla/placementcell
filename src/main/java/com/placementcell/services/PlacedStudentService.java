@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.placementcell.dto.PlacedStudentResponse;
+import com.placementcell.dto.PlacedStudentDTO;
 import com.placementcell.entities.CompanyDetails;
 import com.placementcell.entities.PlacedStudent;
 import com.placementcell.exceptions.UserExceptions;
@@ -52,8 +52,8 @@ public class PlacedStudentService {
 		return placedStudentRepositroy.save(placedStudent);
 	}
 	
-	public List<PlacedStudent> getAll(){
-		return placedStudentRepositroy.findAll();
+	public List<PlacedStudentDTO> getAll(){
+		return placedStudentRepositroy.findAllWithCompanyName();
 	}
 	
 	public void delete(int id) throws UserExceptions {

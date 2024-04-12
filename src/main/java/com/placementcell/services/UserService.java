@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.placementcell.dto.UserInfoDetailsList;
+import com.placementcell.dto.UsersInfoDetails;
 import com.placementcell.entities.EducationDetails;
 import com.placementcell.entities.Users;
 import com.placementcell.entities.UsersDetails;
@@ -27,23 +28,11 @@ public class UserService {
 	@Autowired
 	private CourseRepository courseRepository;
 
-	public List<UserInfoDetailsList> getAllForAdmin() {
-		List<Object[]> allStudents= userRepository.findAllStudentsList();
-		List<UserInfoDetailsList> userInfoDetailsLists=new ArrayList<>();
-		for(Object[] ob:allStudents)
-		{
-			UserInfoDetailsList userInfoDetailsList=new UserInfoDetailsList();
-			userInfoDetailsList.setEmail(ob[0].toString());
-			userInfoDetailsList.setFirstName(ob[1].toString());
-			userInfoDetailsList.setMiddleName(ob[2].toString());
-			userInfoDetailsList.setLastName(ob[3].toString());
-			userInfoDetailsList.setPersonalEmail(ob[4].toString());
-			userInfoDetailsList.setGender(ob[5].toString());
-			userInfoDetailsList.setContact(ob[6].toString());
-			userInfoDetailsList.setCourse(ob[7].toString());
-			userInfoDetailsLists.add(userInfoDetailsList);
-		}
-		return userInfoDetailsLists;
+	public List<UsersInfoDetails> getAllForAdmin() {
+		List<UsersInfoDetails> allStudents= userRepository.findAllUserInfoDetails();
+//		List<UserInfoDetailsList> userInfoDetailsLists=new ArrayList<>();
+		
+		return allStudents;
 	}
 
 	public Users add(Users users) {

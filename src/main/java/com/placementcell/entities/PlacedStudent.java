@@ -25,7 +25,6 @@ public class PlacedStudent {
 	private String linkedin;
 	private Date date;
 	private String image;
-	@Column(unique = true)
 	private String email;
 	public PlacedStudent() {
 		super();

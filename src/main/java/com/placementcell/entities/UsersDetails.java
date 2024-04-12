@@ -30,7 +30,6 @@ public class UsersDetails {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	@Column(unique=true)
 	private String personalEmail;
 	private String gender;
 	private String contact;

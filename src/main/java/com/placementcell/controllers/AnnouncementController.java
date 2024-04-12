@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.placementcell.dto.AnnouncementDTO;
 import com.placementcell.dto.AnnouncementResponse;
 import com.placementcell.entities.Announcement;
 import com.placementcell.exceptions.InvalidExpiryDateException;
@@ -61,8 +63,8 @@ public class AnnouncementController {
 	}
 
 	@GetMapping("/getallactive")
-	public ResponseEntity<List<AnnouncementResponse>> getAllActive() {
-		return new ResponseEntity<List<AnnouncementResponse>>(announcementService.getAllActiveAnnouncement(),
+	public ResponseEntity<List<AnnouncementDTO>> getAllActive() {
+		return new ResponseEntity<List<AnnouncementDTO>>(announcementService.getAllActiveAnnouncement(),
 				HttpStatus.OK);
 	}
 

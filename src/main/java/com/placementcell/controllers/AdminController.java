@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.placementcell.dto.UserInfoDetailsList;
+import com.placementcell.dto.UsersInfoDetails;
 import com.placementcell.services.UserService;
 
 @CrossOrigin
@@ -22,7 +23,7 @@ public class AdminController {
 	private UserService userService;
 	// View All Students
 	@GetMapping("/allstudents")
-	public ResponseEntity<List<UserInfoDetailsList>> getAllStudents(){
-		return new ResponseEntity<List<UserInfoDetailsList>>(userService.getAllForAdmin(),HttpStatus.OK);
+	public ResponseEntity<List<UsersInfoDetails>> getAllStudents(){
+		return new ResponseEntity<List<UsersInfoDetails>>(userService.getAllForAdmin(),HttpStatus.OK);
 	}
 }

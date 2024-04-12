@@ -47,7 +47,7 @@ public class SecurityConfig {
 						.requestMatchers("/user/login", "/forgot/otpsend", "/forgot/otpreceive").permitAll()
 						.requestMatchers("/company/delete/", "/announcement/add", "/announcement/update",
 								"/announcement/getall", "/studymaterial/add", "/studymaterial/update",
-								"/studymaterial/delete/", "/user/add", "/superadmin/sendfile", "/announcement/delete/")
+								"/studymaterial/delete/", "/user/add", "/superadmin/sendfile", "/announcement/delete/","/superadmin/changerole")
 						.hasRole("SUPERADMIN")
 						.requestMatchers("/company/add", "/company/update", "/admin/allstudents", "/questions/add",
 								"/placed/add", "/placed/update", "/placed/delete")

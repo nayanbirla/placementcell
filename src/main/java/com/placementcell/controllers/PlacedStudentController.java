@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.placementcell.dto.PlacedStudentDTO;
 import com.placementcell.entities.PlacedStudent;
 import com.placementcell.exceptions.UserExceptions;
 import com.placementcell.request.PlacedStudentRequest;
@@ -46,8 +47,8 @@ public class PlacedStudentController {
 	}
 
 	@GetMapping("/getall")
-	public ResponseEntity<List<PlacedStudent>> getAll() {
-		return new ResponseEntity<List<PlacedStudent>>(placedStudentService.getAll(), HttpStatus.OK);
+	public ResponseEntity<List<PlacedStudentDTO>> getAll() {
+		return new ResponseEntity<List<PlacedStudentDTO>>(placedStudentService.getAll(), HttpStatus.OK);
 	}
 
 

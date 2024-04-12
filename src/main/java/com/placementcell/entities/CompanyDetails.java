@@ -21,7 +21,7 @@ public class CompanyDetails {
 	private int companyId;
 	@Column(unique = true)
     private String companyName;
-    @Column(length = 1000)
+    @Column(length = 20000)
     private String description;
     private boolean hiringStatus;
     private String logo;

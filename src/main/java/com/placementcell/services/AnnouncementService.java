@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.placementcell.dto.AnnouncementDTO;
 import com.placementcell.dto.AnnouncementResponse;
 import com.placementcell.entities.Announcement;
 import com.placementcell.entities.Users;
@@ -70,16 +71,9 @@ public class AnnouncementService {
 		return announcementResponse;
 	}
 
-	public List<AnnouncementResponse> getAllActiveAnnouncement() {
-		List<Object[]> announcements = announcementRepository.findAllActiveAnnouncement();
-		List<AnnouncementResponse> announcementResponses = new ArrayList<>();
-		for (Object[] announcement : announcements) {
-			AnnouncementResponse announcementResponse = new AnnouncementResponse();
-			announcementResponse.setTitle(announcement[0].toString());
-			announcementResponse.setContent(announcement[1].toString());
-			announcementResponses.add(announcementResponse);
-		}
-		return announcementResponses;
+	public List<AnnouncementDTO> getAllActiveAnnouncement() {
+		List<AnnouncementDTO> announcements = announcementRepository.findAllActiveAnnouncement();
+		return announcements;
 	}
 
 	public List<Announcement> getAllAnnouncement() {
