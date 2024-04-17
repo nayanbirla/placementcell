@@ -55,6 +55,7 @@ public class PlacedStudentController {
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Message> delete(@PathVariable int id) {
 		try {
+			placedStudentService.delete(id);
 			return new ResponseEntity<Message>(new Message("Placed Student Deleted Successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<Message>(new Message(e.getMessage()), HttpStatus.BAD_REQUEST);

@@ -61,7 +61,7 @@ public class AnnouncementService {
 		announcement.setContent(announcementRequest.getContent());
 		announcement.setDatePosted(announcement.getDatePosted());
 		announcement.setDateToRemove(announcementRequest.getExpiryDate());
-
+        announcement.setTimeToRemove(announcementRequest.getExpiryTime());   
 		Announcement announcement2 = announcementRepository.save(announcement);
 
 		AnnouncementResponse announcementResponse = new AnnouncementResponse();

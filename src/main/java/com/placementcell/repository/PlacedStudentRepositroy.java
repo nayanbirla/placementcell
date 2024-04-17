@@ -10,7 +10,7 @@ import com.placementcell.entities.PlacedStudent;
 
 public interface PlacedStudentRepositroy extends JpaRepository<PlacedStudent,Integer> {
 
-	@Query(value="select id,date,email,first_name as firstName,image,last_name as lastName,linkedin,company_name as companyName from placed_student\r\n"
+	@Query(value="select id,date as placedDate,email,first_name as firstName,image,last_name as lastName,linkedin,company_name as companyName from placed_student\r\n"
 			+ "inner join company_details ON company_details.company_id = placed_student.company_details_placed_company_id order by date desc",nativeQuery = true)
 	List<PlacedStudentDTO> findAllWithCompanyName();
 }

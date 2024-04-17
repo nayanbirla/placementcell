@@ -2,6 +2,7 @@ package com.placementcell.request;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class AnnouncementRequest {
 
@@ -9,18 +10,19 @@ public class AnnouncementRequest {
 	private String title;
 	private String content;
 	private LocalDate expiryDate;
-
+    private LocalTime expiryTime;
 	public AnnouncementRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnnouncementRequest(int id, String title, String content, LocalDate expiryDate) {
+	public AnnouncementRequest(int id, String title, String content, LocalDate expiryDate,LocalTime expiryTime) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.expiryDate = expiryDate;
+		this.expiryTime=expiryTime;
 	}
 
 	public int getId() {
@@ -54,5 +56,15 @@ public class AnnouncementRequest {
 	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
+
+	public LocalTime getExpiryTime() {
+		return expiryTime;
+	}
+
+	public void setExpiryTime(LocalTime expiryTime) {
+		this.expiryTime = expiryTime;
+	}
+	
+	
 
 }

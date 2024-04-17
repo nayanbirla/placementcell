@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,7 +25,8 @@ public class Announcement {
 	private String content;
 	private LocalDate datePosted;
 	private LocalDate dateToRemove; // Date to remove the announcement
-    @ManyToOne
+    private LocalTime timeToRemove; 
+	@ManyToOne
     @JsonIgnore
     @JoinColumn(name="superAdminId")
 	private Users superAdminId;
@@ -36,13 +38,14 @@ public class Announcement {
 	}
 
 	// Constructor
-	public Announcement(int id, String title, String content, LocalDate datePosted, LocalDate dateToRemove,Users superAdminId) {
+	public Announcement(int id, String title, String content, LocalDate datePosted, LocalDate dateToRemove,Users superAdminId,LocalTime timeToRemove) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.datePosted = datePosted;
 		this.dateToRemove = dateToRemove;
 		this.superAdminId=superAdminId;
+		this.timeToRemove=timeToRemove;
 	}
 
 	// Getters and Setters
@@ -89,8 +92,24 @@ public class Announcement {
 	public Users getUsers() {
 		return superAdminId;
 	}
-
+	
 	public void setUsers(Users superAdminId) {
+		this.superAdminId = superAdminId;
+	}
+	
+	public LocalTime getTimeToRemove() {
+		return timeToRemove;
+	}
+
+	public void setTimeToRemove(LocalTime timeToRemove) {
+		this.timeToRemove = timeToRemove;
+	}
+
+	public Users getSuperAdminId() {
+		return superAdminId;
+	}
+
+	public void setSuperAdminId(Users superAdminId) {
 		this.superAdminId = superAdminId;
 	}
 
