@@ -2,6 +2,7 @@ package com.placementcell.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,5 +30,8 @@ public interface UserRepository extends JpaRepository<Users,Integer>{
 			+ "FROM users_info\r\n"
 			+ "WHERE email =:email",nativeQuery=true)
 	int checkEmailExistance(@Param("email") String email);
+	
+	@Query(value="SELECT email from users_info",nativeQuery = true)
+	Set<String> findAllEmails();
 	
 }

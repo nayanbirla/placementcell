@@ -148,6 +148,7 @@ public class StudyMaterialService {
 			studyMaterialRepository.deleteById(id);
 			return new Message("Study Material has been deleted");
 		} catch (Exception ee) {
+		    ee.printStackTrace();
 			return new Message("Study Material does not exist");
 		}
 	}

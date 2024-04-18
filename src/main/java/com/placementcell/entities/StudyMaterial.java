@@ -8,6 +8,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,9 +24,11 @@ public class StudyMaterial {
 	private int studyMaterialId;
 	private String subjectName;
 	private String topicName;
+	@Column(length=1000)
 	private String description;
-	@OneToMany(mappedBy = "studyMaterial")
+	@OneToMany(mappedBy = "studyMaterial",cascade = CascadeType.ALL)
 	@JsonManagedReference
+	
 	private List<Links> links;
 	@ManyToOne
 	@JsonIgnore

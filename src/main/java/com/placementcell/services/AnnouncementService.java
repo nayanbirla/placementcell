@@ -41,6 +41,7 @@ public class AnnouncementService {
 		announcement.setContent(announcementRequest.getContent());
 		announcement.setDatePosted(LocalDate.now());
 		announcement.setDateToRemove(announcementRequest.getExpiryDate());
+		announcement.setTimeToRemove(announcementRequest.getExpiryTime());
 		String username = jwtService.extractUserName(token);
 		Users user = userRepository.FindByEmail(username).get();
 		announcement.setUsers(user);
