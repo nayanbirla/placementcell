@@ -26,13 +26,16 @@ public class PlacedStudent {
 	private Date date;
 	private String image;
 	private String email;
+	private String ctc;
+	private String offerLetter;
+	
 	public PlacedStudent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	public PlacedStudent(int id, CompanyDetails companyDetailsPlaced, String firstName, String lastName,
-			String linkedin, Date date, String image, String email) {
+			String linkedin, Date date, String image, String email,String ctc,String offerLetter) {
 		super();
 		this.id = id;
 		this.companyDetailsPlaced = companyDetailsPlaced;
@@ -42,6 +45,8 @@ public class PlacedStudent {
 		this.date = date;
 		this.image = image;
 		this.email = email;
+		this.ctc=ctc;
+		this.offerLetter=offerLetter;
 	}
 
 	public int getId() {
@@ -92,6 +97,22 @@ public class PlacedStudent {
 
 	public void setCompanyDetailsPlaced(CompanyDetails companyDetailsPlaced) {
 		this.companyDetailsPlaced = companyDetailsPlaced;
+	}
+
+	public String getCtc() {
+		return ctc;
+	}
+
+	public void setCtc(String ctc) {
+		this.ctc = ctc;
+	}
+
+	public String getOfferLetter() {
+		return offerLetter;
+	}
+
+	public void setOfferLetter(String offerLetter) {
+		this.offerLetter = offerLetter;
 	}
 	
 	

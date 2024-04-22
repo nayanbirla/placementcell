@@ -12,4 +12,6 @@ public interface PlacedStudentDTO {
 	String getLastName();
 	String getLinkedin();
 	String getCompanyName();
+	String getCtc();
+	String getOfferLetter();
 }

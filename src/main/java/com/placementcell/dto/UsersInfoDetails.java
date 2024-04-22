@@ -18,4 +18,6 @@ public interface UsersInfoDetails {
     String getCourseName();
     
     String getImage();
+    
+    String getRole();
 }

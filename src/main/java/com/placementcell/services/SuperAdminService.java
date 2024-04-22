@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.placementcell.dto.EmailInvalid;
 import com.placementcell.entities.Users;
 import com.placementcell.exceptions.InvalidExcelException;
 import com.placementcell.exceptions.UserNotFoundException;
@@ -31,9 +32,10 @@ public class SuperAdminService {
 	@Autowired
 	private UserService userService;
 
-	public List<String> addEmailsFromExcel(MultipartFile file) throws InvalidExcelException {
+	public EmailInvalid addEmailsFromExcel(MultipartFile file) throws InvalidExcelException {
 		List<String> invalidEmails = new ArrayList<>();
 		List<String> validEmails = new ArrayList<>();
+		List<String> emailAlreadyExist=new ArrayList<>(); 
 		try {
 			Workbook workbook = new XSSFWorkbook(file.getInputStream());
 			Sheet sheet = workbook.getSheetAt(0); // Assuming the first sheet
@@ -69,7 +71,7 @@ public class SuperAdminService {
 			System.out.println(validEmails);
 			workbook.close();
 			List<Users> users = new ArrayList<>();
-
+            
 			for (String email : validEmails) {
 				int count = userRepository.checkEmailExistance(email);
 				if (count == 0) {
@@ -77,6 +79,8 @@ public class SuperAdminService {
 					Users newUser = new Users();
 					newUser.setEmail(email);
 					users.add(newUser);
+				}else {
+					emailAlreadyExist.add(email);
 				}
 			}
 			users = userRepository.saveAll(users);
@@ -85,7 +89,8 @@ public class SuperAdminService {
 			throw new InvalidExcelException("Excel file is not valid");
 			// Handle the IOException
 		}
-		return invalidEmails;
+		
+		return new EmailInvalid(invalidEmails, emailAlreadyExist);
 	}
 
 	public Message changeRole(RoleChangingRequest roleChangingRequest)

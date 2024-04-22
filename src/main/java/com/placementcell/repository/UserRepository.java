@@ -19,7 +19,7 @@ public interface UserRepository extends JpaRepository<Users,Integer>{
 	@Query(value="select * from users_info where email =:email ",nativeQuery=true)
 	Optional<Users> FindByEmail(@Param("email") String email);
 	
-	 @Query(value = "SELECT email, first_name as firstName, middle_name as middleName, last_name as lastName, personal_email as personalEmail, gender , contact, course_name as courseName,image " +
+	 @Query(value = "SELECT email, first_name as firstName, middle_name as middleName, last_name as lastName, personal_email as personalEmail, gender , contact, course_name as courseName,image,role " +
 	            "FROM users_info " +
 	            "LEFT JOIN users_details ON users_details.user_id = users_info.id " +
 	            "LEFT JOIN course ON users_details.course_course_id = course.course_id " +

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.placementcell.dto.EmailInvalid;
 import com.placementcell.exceptions.UserNotFoundException;
 import com.placementcell.request.RoleChangingRequest;
 import com.placementcell.services.SuperAdminService;
@@ -31,7 +32,7 @@ public class SuperAdminController {
 	@PostMapping("/sendfile")
 	public ResponseEntity<?> validateEmails(@RequestParam("file") MultipartFile file) {
 		try {
-			return new ResponseEntity<List<String>>(superAdminService.addEmailsFromExcel(file), HttpStatus.OK);
+			return new ResponseEntity<EmailInvalid>(superAdminService.addEmailsFromExcel(file), HttpStatus.OK);
 		} catch (Exception ee) {
 			return new ResponseEntity<Message>(new Message(ee.getMessage()), HttpStatus.OK);
 		}
