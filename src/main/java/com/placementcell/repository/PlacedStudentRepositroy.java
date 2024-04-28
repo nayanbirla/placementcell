@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.placementcell.dto.PlacedStudentDTO;
 import com.placementcell.entities.PlacedStudent;
@@ -13,4 +14,7 @@ public interface PlacedStudentRepositroy extends JpaRepository<PlacedStudent,Int
 	@Query(value="select id,date as placedDate,email,first_name as firstName,image,last_name as lastName,linkedin,company_name as companyName,ctc,offer_letter as offerLetter from placed_student\r\n"
 			+ "inner join company_details ON company_details.company_id = placed_student.company_details_placed_company_id order by date desc",nativeQuery = true)
 	List<PlacedStudentDTO> findAllWithCompanyName();
+
+	@Query(value="select offer_letter from placed_student where id=:id",nativeQuery = true)
+	String getFileName(@Param("id") int id);
 }

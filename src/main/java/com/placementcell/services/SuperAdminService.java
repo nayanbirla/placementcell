@@ -98,7 +98,8 @@ public class SuperAdminService {
 		Users users = userRepository.FindByEmail(roleChangingRequest.getEmail())
 				.orElseThrow(() -> new UserNotFoundException("User not found"));
 		String role = roleChangingRequest.getRole().toUpperCase();
-		if (role != "USER" && role != "ADMIN" && role != "SUPERADMIN") {
+		System.out.print(role);
+		if (!role.equals("USER") && !role.equals("ADMIN") && !role.equals("SUPERADMIN")) {
 			throw new RoleNotFoundException("Invalid Role");
 		}
 

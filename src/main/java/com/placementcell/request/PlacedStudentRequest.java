@@ -2,6 +2,8 @@ package com.placementcell.request;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PlacedStudentRequest {
 
 	private int id;
@@ -12,14 +14,15 @@ public class PlacedStudentRequest {
 	private String image;
 	private String email;
 	private String companyName;
-
+    private String ctc;
+  
 	public PlacedStudentRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public PlacedStudentRequest(int id, String firstName, String lastName, String linkedin, Date date, String image,
-			String email, String companyName) {
+			String email, String companyName, String ctc) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -29,6 +32,8 @@ public class PlacedStudentRequest {
 		this.image = image;
 		this.email = email;
 		this.companyName = companyName;
+		this.ctc=ctc;
+		
 	}
 
 	public int getId() {
@@ -94,5 +99,16 @@ public class PlacedStudentRequest {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+
+	public String getCtc() {
+		return ctc;
+	}
+
+	public void setCtc(String ctc) {
+		this.ctc = ctc;
+	}
+
+		
+	
 
 }
