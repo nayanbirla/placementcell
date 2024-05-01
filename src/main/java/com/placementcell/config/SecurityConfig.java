@@ -53,7 +53,7 @@ public class SecurityConfig {
 								"/placed/add", "/placed/update", "/placed/delete")
 						.hasAnyRole("SUPERADMIN", "ADMIN")
 						.requestMatchers("/user/update", "/placed/getall", "/announcement/getallactive",
-								"/studymaterial/getall", "/company/getall", "/company/", "/course/getall", "/user/","/placed/download/**")
+								"/studymaterial/getall", "/company/getall", "/company/", "/course/getall", "/user/")
 						.hasAnyRole("SUPERADMIN", "ADMIN", "USER").anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider())

@@ -46,7 +46,7 @@ public class PlacedStudentController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestBody PlacedStudentRequest placedStudentRequest, @RequestParam("file") MultipartFile file) throws IOException {
+	public ResponseEntity<?> update(@ModelAttribute PlacedStudentRequest placedStudentRequest, @RequestParam("file") MultipartFile file) throws IOException {
 		try {
 			return new ResponseEntity<PlacedStudent>(placedStudentService.updatePlacedStudent(placedStudentRequest,file,path),
 					HttpStatus.OK);
