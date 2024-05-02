@@ -24,7 +24,7 @@ public class StudyMaterial {
 	private int studyMaterialId;
 	private String subjectName;
 	private String topicName;
-	@Column(length=1000)
+	@Column(length=10000)
 	private String description;
 	@OneToMany(mappedBy = "studyMaterial",cascade = CascadeType.ALL)
 	@JsonManagedReference

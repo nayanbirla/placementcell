@@ -79,57 +79,57 @@ public class PlacedStudentService {
 
 	}
 
-	public PlacedStudent updatePlacedStudent(PlacedStudentRequest placedStudentRequest, MultipartFile file, String path)
+	public PlacedStudent updatePlacedStudent(PlacedStudentRequest placedStudentRequest)
 			throws UserExceptions, IOException {
 		CompanyDetails companyDetails = companyDetailsRepository
 				.findCompanyObjectByName(placedStudentRequest.getCompanyName());
 		PlacedStudent placedStudent = placedStudentRepositroy.findById(placedStudentRequest.getId())
 				.orElseThrow(() -> new UserExceptions("user not found"));
 
-		if (file != null) {
-
-			String fileName = placedStudent.getOfferLetter(); // Assuming this is the file name
-			String filePath = path + File.separator + fileName;
-
-			// Create a File object representing the file
-			File fileToDelete = new File(filePath);
-
-			// Check if the file exists before attempting to delete
-			if (fileToDelete.exists()) {
-				// Attempt to delete the file
-				if (fileToDelete.delete()) {
-					System.out.println("File deleted successfully.");
-				} else {
-					System.out.println("Failed to delete the file.");
-				}
-			} else {
-				System.out.println("File does not exist.");
-			}
-
-			String uuid = UUID.randomUUID().toString();
-
-			// Get the file extension from the original filename (if needed)
-			String originalFilename = file.getOriginalFilename();
-			String fileExtension = "";
-			if (originalFilename != null) {
-			    int extensionIndex = originalFilename.lastIndexOf(".");
-			    if (extensionIndex != -1) {
-			        fileExtension = originalFilename.substring(extensionIndex);
-			    }
-			}
-
-			// Construct the new filename using the UUID and file extension
-			String newFilename = uuid + fileExtension;
-
-			// Construct the full file path with the new filename
-			String filePath1 = path + File.separator + newFilename;
-
-
-			File f = new File(path);
-			if (!f.exists()) {
-				f.mkdir();
-			}
-			Files.copy(file.getInputStream(), Paths.get(filePath1));
+//		if (file != null) {
+//
+//			String fileName = placedStudent.getOfferLetter(); // Assuming this is the file name
+//			String filePath = path + File.separator + fileName;
+//
+//			// Create a File object representing the file
+//			File fileToDelete = new File(filePath);
+//
+//			// Check if the file exists before attempting to delete
+//			if (fileToDelete.exists()) {
+//				// Attempt to delete the file
+//				if (fileToDelete.delete()) {
+//					System.out.println("File deleted successfully.");
+//				} else {
+//					System.out.println("Failed to delete the file.");
+//				}
+//			} else {
+//				System.out.println("File does not exist.");
+//			}
+//
+//			String uuid = UUID.randomUUID().toString();
+//
+//			// Get the file extension from the original filename (if needed)
+//			String originalFilename = file.getOriginalFilename();
+//			String fileExtension = "";
+//			if (originalFilename != null) {
+//			    int extensionIndex = originalFilename.lastIndexOf(".");
+//			    if (extensionIndex != -1) {
+//			        fileExtension = originalFilename.substring(extensionIndex);
+//			    }
+//			}
+//
+//			// Construct the new filename using the UUID and file extension
+//			String newFilename = uuid + fileExtension;
+//
+//			// Construct the full file path with the new filename
+//			String filePath1 = path + File.separator + newFilename;
+//
+//
+//			File f = new File(path);
+//			if (!f.exists()) {
+//				f.mkdir();
+//			}
+//			Files.copy(file.getInputStream(), Paths.get(filePath1));
 
 		
 		placedStudent.setCompanyDetailsPlaced(companyDetails);
@@ -140,8 +140,8 @@ public class PlacedStudentService {
 		placedStudent.setLastName(placedStudentRequest.getLastName());
 		placedStudent.setLinkedin(placedStudentRequest.getLinkedin());
 		placedStudent.setCtc(placedStudentRequest.getCtc());
-		placedStudent.setOfferLetter(newFilename);
-		}
+//		placedStudent.setOfferLetter(newFilename);
+		
 		return placedStudentRepositroy.save(placedStudent);
 	}
 

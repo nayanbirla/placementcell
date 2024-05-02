@@ -2,7 +2,9 @@ package com.placementcell.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.management.relation.RoleNotFoundException;
 
@@ -71,14 +73,16 @@ public class SuperAdminService {
 			System.out.println(validEmails);
 			workbook.close();
 			List<Users> users = new ArrayList<>();
-            
+            Set<String> checkFile=new HashSet<>();
 			for (String email : validEmails) {
 				int count = userRepository.checkEmailExistance(email);
-				if (count == 0) {
+				if (count == 0 && !checkFile.contains(email)) {
 //					System.out.println("nhi hai re");
 					Users newUser = new Users();
+					newUser.setRole("ROLE_USER");
 					newUser.setEmail(email);
 					users.add(newUser);
+					checkFile.add(email);
 				}else {
 					emailAlreadyExist.add(email);
 				}
